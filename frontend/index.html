@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Self-Storage Facility Rental and Management System" />
+  <title>StoreSpace — Self-Storage Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- PUBLIC LANDING PAGE -->
+  <section id="landingPage" class="landing-page">
+    <header class="public-navbar">
+      <a class="public-brand" href="#home" onclick="publicScroll('home');return false;">
+        <div class="brand-mark">S</div>
+        <div><strong>StoreSpace</strong><span>Your Space. Your Freedom.</span></div>
+      </a>
+      <nav class="public-nav">
+        <button onclick="publicScroll('home')">Trang chủ</button>
+        <button onclick="publicScroll('bookingCatalog')">Đặt kho</button>
+        <button onclick="publicScroll('facilitiesSection')">Cơ sở</button>
+        <button onclick="publicScroll('aboutSection')">Về chúng tôi</button>
+        <button onclick="publicScroll('contactSection')">Liên hệ</button>
+      </nav>
+      <div class="public-actions">
+        <button class="nav-icon" onclick="focusPublicSearch()" title="Tìm kho">⌕</button>
+        <button class="login-nav-btn" onclick="openLoginModal()">Đăng nhập</button>
+      </div>
+      <button class="public-mobile-menu" onclick="document.querySelector('.public-nav').classList.toggle('open')">☰</button>
+    </header>
+
+    <main>
+      <section id="home" class="hero-section">
+        <div class="hero-copy">
+          <span class="hero-eyebrow">SELF-STORAGE · HCMC</span>
+          <h1>Không gian của bạn.<br><em>Chủ động theo cách của bạn.</em></h1>
+          <p>StoreSpace giúp bạn tìm, thuê và quản lý kho lưu trữ an toàn, linh hoạt và minh bạch — từ lúc chọn kho đến khi bàn giao.</p>
+          <div class="hero-actions">
+            <button class="hero-primary" onclick="publicScroll('bookingCatalog')">Khám phá kho <span>→</span></button>
+            <button class="hero-secondary" onclick="openLoginModal()">Đăng nhập / Đăng ký</button>
+          </div>
+          <div class="hero-trust"><span>✓ Xem kho trước khi đăng nhập</span><span>✓ Giá theo tháng rõ ràng</span><span>✓ Thanh toán & hợp đồng được theo dõi</span></div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-image-main"><img src="assets/storage-normal.svg" alt="Không gian lưu trữ StoreSpace"></div>
+          <div class="hero-floating-card"><span>AVAILABLE NOW</span><strong id="heroAvailableCount">—</strong><small>kho đang sẵn sàng</small></div>
+          <div class="hero-circle">S</div>
+        </div>
+      </section>
+
+      <section id="bookingCatalog" class="public-section catalog-section">
+        <div class="section-heading">
+          <div><span class="eyebrow">STORAGE MARKETPLACE</span><h2>Tìm không gian phù hợp với bạn</h2><p>Xem tất cả kho đang Available. Bộ lọc sẽ ưu tiên kho phù hợp lên đầu.</p></div>
+          <span id="publicCatalogCount" class="catalog-count">—</span>
+        </div>
+        <div class="public-searchbar">
+          <span>⌕</span><input id="publicStorageSearch" oninput="renderPublicCatalog()" placeholder="Tìm kho, loại kho, kích cỡ, cơ sở...">
+          <select id="publicFacility" onchange="renderPublicCatalog()"><option value="">Tất cả cơ sở</option></select>
+          <select id="publicClimate" onchange="renderPublicCatalog()"><option value="">Tất cả loại kho</option><option>Kho thường</option><option>Kho mát</option><option>Kho lạnh</option></select>
+          <select id="publicSize" onchange="renderPublicCatalog()"><option value="">Tất cả kích cỡ</option><option value="2">2 m²</option><option value="4">4 m²</option><option value="6">6 m²</option><option value="8">8 m²</option><option value="10">10 m²</option></select>
+        </div>
+        <div id="publicStorageCatalog" class="public-product-grid"></div>
+      </section>
+
+      <section id="facilitiesSection" class="public-section light-section">
+        <div class="section-heading"><div><span class="eyebrow">OUR FACILITIES</span><h2>Cơ sở lưu trữ</h2><p>Mỗi cơ sở có nhiều loại kho và kích thước để bạn lựa chọn.</p></div></div>
+        <div id="publicFacilities" class="facility-cards"></div>
+      </section>
+
+      <section id="aboutSection" class="public-section about-section">
+        <div class="about-grid">
+          <div><span class="eyebrow">ABOUT STORESPACE</span><h2>Lưu trữ đơn giản,<br>quản lý rõ ràng.</h2></div>
+          <div class="about-copy"><p>StoreSpace là hệ thống quản lý và cho thuê kho tự phục vụ, kết nối khách hàng với các cơ sở lưu trữ và hỗ trợ toàn bộ vòng đời thuê kho.</p><div class="feature-list"><div><b>01</b><span><strong>Linh hoạt</strong><small>Chọn loại kho, kích thước và thời gian thuê.</small></span></div><div><b>02</b><span><strong>Minh bạch</strong><small>Giá, tiền cọc, thanh toán và hợp đồng được theo dõi.</small></span></div><div><b>03</b><span><strong>An toàn</strong><small>Quy trình kiểm tra, bàn giao và quản lý quyền truy cập.</small></span></div></div></div>
+        </div>
+      </section>
+
+      <section id="contactSection" class="public-section contact-section">
+        <div class="contact-card"><div><span class="eyebrow">NEED HELP?</span><h2>Bạn cần hỗ trợ về kho?</h2><p>Đội ngũ StoreSpace sẵn sàng hỗ trợ thông tin về cơ sở, loại kho, đặt kho và quy trình thuê.</p></div><button class="hero-primary" onclick="openLoginModal()">Bắt đầu ngay →</button></div>
+      </section>
+    </main>
+
+    <footer class="public-footer"><strong>StoreSpace</strong><span>Self-Storage Facility Rental & Management System</span><span>© 2026 StoreSpace</span></footer>
+  </section>
+
+  <!-- LOGIN -->
+  <section id="loginPage" class="login-page auth-overlay">
+    <div class="login-brand">
+      <div class="brand-mark">S</div>
+      <div>
+        <strong>StoreSpace</strong>
+        <span>Self-Storage Management</span>
+      </div>
+    </div>
+
+    <div class="login-card">
+      <div class="eyebrow">WELCOME BACK</div>
+      <h1>Quản lý kho<br><span>đơn giản hơn.</span></h1>
+      <p class="login-desc">Đăng nhập để truy cập hệ thống theo đúng quyền của bạn.</p>
+
+      <form id="loginForm">
+        <label>Email</label>
+        <input id="email" type="email" placeholder="you@example.com" required />
+
+        <label>Mật khẩu</label>
+        <div class="password-wrap">
+          <input id="password" type="password" placeholder="••••••••" required />
+          <button type="button" id="togglePassword">Hiện</button>
+        </div>
+
+        <div id="loginError" class="form-error"></div>
+        <button class="primary-btn login-btn" type="submit">Đăng nhập <span>→</span></button>
+      </form>
+
+      <div class="register-link-row">
+        <span>Chưa có tài khoản?</span>
+        <button type="button" id="openRegister">Tạo tài khoản mới</button>
+      </div>
+
+      <div class="demo-accounts">
+        <div class="demo-title">Tài khoản demo</div>
+        <button data-login="customer">Storage Customer</button>
+        <button data-login="staff">Facility Staff</button>
+        <button data-login="fm">Facility Manager</button>
+        <button data-login="bom">Business Operations</button>
+        <button data-login="admin">System Administrator</button>
+      </div>
+    </div>
+
+    <div class="login-footer">© 2026 StoreSpace · Self-Storage Facility Rental & Management System</div>
+  </section>
+
+  <!-- REGISTER MODAL -->
+  <div id="registerModal" class="modal-backdrop">
+    <div class="modal-card register-card">
+      <div class="modal-head">
+        <div><span class="eyebrow">NEW ACCOUNT</span><h2>Tạo tài khoản StoreSpace</h2></div>
+        <button type="button" id="closeRegister">×</button>
+      </div>
+      <div class="modal-body">
+        <p class="muted">Bạn có thể đăng ký role phù hợp. Storage Customer được kích hoạt ngay; các role nhân sự/quản lý sẽ ở trạng thái <strong>chờ System Administrator duyệt</strong>.</p>
+        <form id="registerForm" class="form-grid">
+          <div><label>Họ và tên</label><input id="registerName" required maxlength="80" placeholder="Nguyễn Văn A"></div>
+          <div><label>Email</label><input id="registerEmail" type="email" required maxlength="120" placeholder="you@example.com"></div>
+          <div><label>Mật khẩu</label><input id="registerPassword" type="password" required minlength="6" placeholder="Ít nhất 6 ký tự"></div>
+          <div><label>Xác nhận mật khẩu</label><input id="registerConfirm" type="password" required minlength="6" placeholder="Nhập lại mật khẩu"></div>
+          <div><label>Role muốn đăng ký</label><select id="registerRole" required><option value="Storage Customer">Storage Customer</option><option value="Facility Staff">Facility Staff</option><option value="Facility Manager">Facility Manager — Chủ quản lý cơ sở</option><option value="Business Operations Manager">Business Operations Manager — Quản lý vận hành</option></select></div>
+          <div class="notice full">Không thể tự đăng ký System Administrator. Nếu chọn Facility Staff, Facility Manager hoặc Business Operations Manager, tài khoản sẽ gửi đơn cho Admin duyệt trước khi đăng nhập.</div>
+          <div id="registerError" class="form-error full"></div>
+          <div class="register-actions full"><button type="button" class="secondary-btn" id="cancelRegister">Hủy</button><button class="primary-btn" type="submit">Tạo tài khoản →</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <section id="appPage" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-mark">S</div>
+        <div>
+          <strong>StoreSpace</strong>
+          <span>Management</span>
+        </div>
+      </div>
+
+      <div class="facility-switch">
+        <span>FACILITY</span>
+        <button id="facilityButton">Central District <span>⌄</span></button>
+      </div>
+
+      <nav id="sideNav"></nav>
+
+      <div class="sidebar-bottom">
+        <button class="side-link" data-page="settings"><span>⚙</span> Settings</button>
+        <button class="side-link" id="logoutBtn"><span>↪</span> Đăng xuất</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <button class="mobile-menu" id="mobileMenu">☰</button>
+          <div class="breadcrumb">Workspace <span>/</span> <strong id="currentPageName">Dashboard</strong></div>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" title="Thông báo">◌<i></i></button>
+          <div class="user-menu">
+            <div class="avatar" id="userAvatar">U</div>
+            <div class="user-meta">
+              <strong id="userName">User</strong>
+              <span id="userRole">Role</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="page-head">
+          <div>
+            <div class="eyebrow" id="roleEyebrow">WORKSPACE</div>
+            <h2 id="pageTitle">Good morning.</h2>
+            <p id="pageSubtitle">Tổng quan hoạt động hôm nay.</p>
+          </div>
+          <button class="primary-btn" id="primaryAction">+ Tạo mới</button>
+        </div>
+
+        <div id="dashboardContent"></div>
+      </div>
+    </main>
+  </section>
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>

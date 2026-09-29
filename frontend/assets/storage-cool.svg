@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+<defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#eaf6f5"/><stop offset="1" stop-color="#d7eef0"/></linearGradient></defs>
+<rect width="800" height="360" fill="url(#g)"/><rect y="235" width="800" height="125" fill="#cddbd8"/>
+<rect x="70" y="72" width="660" height="168" rx="12" fill="#f7fcfc" stroke="#7fa9a7" stroke-width="5"/>
+<path d="M55 74L400 22l345 52" fill="#b8d9d8" stroke="#659492" stroke-width="6"/>
+<g fill="#d3eceb" stroke="#6e9c99" stroke-width="4"><rect x="100" y="105" width="115" height="105" rx="5"/><rect x="235" y="105" width="115" height="105" rx="5"/><rect x="370" y="105" width="115" height="105" rx="5"/><rect x="505" y="105" width="115" height="105" rx="5"/></g>
+<g stroke="#6e9c99" stroke-width="3"><path d="M100 140h115M100 175h115M235 140h115M235 175h115M370 140h115M370 175h115M505 140h115M505 175h115"/></g>
+<g fill="#79b3b0"><path d="M142 123l7 10 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z"/><path d="M277 158l7 10 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z"/><path d="M412 123l7 10 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z"/><path d="M547 158l7 10 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z"/></g>
+<rect x="330" y="220" width="140" height="15" rx="7" fill="#5e8784"/><circle cx="400" cy="227" r="7" fill="#cddbd8"/>
+</svg>

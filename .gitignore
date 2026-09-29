@@ -1,0 +1,26 @@
+# .NET Core
+backend/**/bin/
+backend/**/obj/
+backend/**/appsettings.Development.json
+backend/**/appsettings.json
+*.user
+*.userosscache
+*.sln.docstates
+
+# Node/NPM (Just in case they add Node later)
+node_modules/
+npm-debug.log
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Mac/OSX
+.DS_Store
+
+# Misc
+*.log

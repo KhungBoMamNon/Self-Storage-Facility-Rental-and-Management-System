@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+<defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#eaf2fb"/><stop offset="1" stop-color="#d9e7f5"/></linearGradient></defs>
+<rect width="800" height="360" fill="url(#g)"/><rect y="235" width="800" height="125" fill="#cbd4df"/>
+<rect x="70" y="72" width="660" height="168" rx="12" fill="#f7faff" stroke="#7898bd" stroke-width="5"/>
+<path d="M55 74L400 22l345 52" fill="#b9cee4" stroke="#6383a8" stroke-width="6"/>
+<g fill="#d5e5f5" stroke="#6c8eaf" stroke-width="4"><rect x="100" y="105" width="115" height="105" rx="5"/><rect x="235" y="105" width="115" height="105" rx="5"/><rect x="370" y="105" width="115" height="105" rx="5"/><rect x="505" y="105" width="115" height="105" rx="5"/></g>
+<g stroke="#6c8eaf" stroke-width="3"><path d="M100 140h115M100 175h115M235 140h115M235 175h115M370 140h115M370 175h115M505 140h115M505 175h115"/></g>
+<g fill="none" stroke="#6c8eaf" stroke-width="5"><path d="M157 120v28m-14-14h28l-20 20 20 20m120-54v28m-14-14h28l-20 20 20 20m120-54v28m-14-14h28l-20 20 20 20m120-54v28m-14-14h28l-20 20 20 20"/></g>
+<rect x="330" y="220" width="140" height="15" rx="7" fill="#58799d"/><circle cx="400" cy="227" r="7" fill="#cbd4df"/>
+</svg>
