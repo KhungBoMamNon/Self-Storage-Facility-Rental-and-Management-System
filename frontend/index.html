@@ -59,8 +59,8 @@
         <div class="public-searchbar">
           <span>⌕</span><input id="publicStorageSearch" oninput="renderPublicCatalog()" placeholder="Tìm kho, loại kho, kích cỡ, cơ sở...">
           <select id="publicFacility" onchange="renderPublicCatalog()"><option value="">Tất cả cơ sở</option></select>
-          <select id="publicClimate" onchange="renderPublicCatalog()"><option value="">Tất cả loại kho</option><option>Kho thường</option><option>Kho mát</option><option>Kho lạnh</option></select>
-          <select id="publicSize" onchange="renderPublicCatalog()"><option value="">Tất cả kích cỡ</option><option value="2">2 m²</option><option value="4">4 m²</option><option value="6">6 m²</option><option value="8">8 m²</option><option value="10">10 m²</option></select>
+          <select id="publicClimate" onchange="renderPublicCatalog()"><option value="">Tất cả loại kho</option><option value="Climate-Control Unit">Climate-Control Unit</option><option value="Drive-up Unit">Drive-up Unit</option><option value="Basic Unit">Basic Unit</option><option value="Indoor Unit">Indoor Unit</option></select>
+          <select id="publicSize" onchange="renderPublicCatalog()"><option value="">Tất cả kích cỡ</option><option value="S1">S1: Locker</option><option value="S2">S2: 2x2m</option><option value="S3">S3: 2x4m</option><option value="M1">M1: 2x6m</option><option value="M2">M2: 4x4m</option><option value="L1">L1: 4x6m</option><option value="L2">L2: 4x8m</option><option value="L3">L3: 4x10m</option><option value="V1">V1: 8x4m</option></select>
         </div>
         <div id="publicStorageCatalog" class="public-product-grid"></div>
       </section>

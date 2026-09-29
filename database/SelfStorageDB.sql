@@ -3,6 +3,17 @@
 -- SQL Server Database
 -- =============================================
 
+USE master;
+GO
+
+IF EXISTS (SELECT name FROM sys.databases WHERE name = N'SelfStorageDB')
+BEGIN
+    -- Ngắt toàn bộ kết nối đang sử dụng DB này trước khi xóa
+    ALTER DATABASE SelfStorageDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE SelfStorageDB;
+END
+GO
+
 CREATE DATABASE SelfStorageDB;
 GO
 
@@ -385,7 +396,10 @@ GO
 SET IDENTITY_INSERT Facility ON;
 INSERT INTO Facility (FacilityID, ManagerID, FacilityName, Address, ContactPhone, Status) VALUES
 (1, 1, N'Cơ sở Lưu trữ Quận 1', N'123 Lê Lợi, Quận 1, TP.HCM', '0812345678', 'Active'),
-(2, 2, N'Cơ sở Lưu trữ Tân Bình', N'456 Cộng Hòa, Tân Bình, TP.HCM', '0812345679', 'Active');
+(2, 2, N'Cơ sở Lưu trữ Tân Bình', N'456 Cộng Hòa, Tân Bình, TP.HCM', '0812345679', 'Active'),
+(3, 1, N'Cơ sở Lưu trữ Thủ Đức', N'123 Võ Văn Ngân, Thủ Đức, TP.HCM', '0812345680', 'Active'),
+(4, 2, N'Cơ sở Lưu trữ Quận 2', N'456 Trần Não, Quận 2, TP.HCM', '0812345681', 'Active'),
+(5, 1, N'Cơ sở Lưu trữ Quận 3', N'789 Cách Mạng Tháng 8, Quận 3, TP.HCM', '0812345682', 'Active');
 SET IDENTITY_INSERT Facility OFF;
 GO
 
@@ -401,42 +415,87 @@ GO
 -- 5. UnitSize
 SET IDENTITY_INSERT UnitSize ON;
 INSERT INTO UnitSize (UnitSizeID, Dimensions, Volume) VALUES
-(1, '2m x 2m x 2m', 8.00),
-(2, '3m x 3m x 3m', 27.00);
+(1, 'S1: Locker (< 2.5m)', NULL),
+(2, 'S2: 2x2m', NULL),
+(3, 'S3: 2x4m', NULL),
+(4, 'M1: 2x6m', NULL),
+(5, 'M2: 4x4m', NULL),
+(6, 'L1: 4x6m', NULL),
+(7, 'L2: 4x8m', NULL),
+(8, 'L3: 4x10m', NULL),
+(9, 'V1: 8x4m', NULL);
 SET IDENTITY_INSERT UnitSize OFF;
 GO
 
 -- 6. UnitType
 SET IDENTITY_INSERT UnitType ON;
 INSERT INTO UnitType (UnitTypeID, TypeName, Description) VALUES
-(1, 'Standard', N'Kho tiêu chuẩn, thông gió tự nhiên'),
-(2, 'Climate Controlled', N'Kho có điều hòa nhiệt độ và độ ẩm');
+(1, 'Climate-Control Unit', N'Kho có thể điều chỉnh nhiệt độ, nằm trong nhà'),
+(2, 'Drive-up Unit', N'Kho ngoài trời, xe vào tận nơi (L3, V1)'),
+(3, 'Basic Unit', N'Kho ngoài trời tiêu chuẩn'),
+(4, 'Indoor Unit', N'Kho trong nhà, có hành lang (Size trung)');
 SET IDENTITY_INSERT UnitType OFF;
 GO
 
 -- 7. StorageUnit
 SET IDENTITY_INSERT StorageUnit ON;
 INSERT INTO StorageUnit (UnitID, FacilityID, UnitTypeID, UnitSizeID, UnitNumber, BasePrice, Status) VALUES
-(1, 1, 1, 1, 'F1-U01', 500000, 'Available'),
-(2, 1, 1, 1, 'F1-U02', 500000, 'Available'),
-(3, 1, 1, 2, 'F1-U03', 800000, 'Available'),
-(4, 1, 1, 2, 'F1-U04', 800000, 'In Use'),
-(5, 1, 2, 1, 'F1-U05', 700000, 'Available'),
-(6, 1, 2, 1, 'F1-U06', 700000, 'Available'),
-(7, 1, 2, 2, 'F1-U07', 1200000, 'Available'),
-(8, 1, 2, 2, 'F1-U08', 1200000, 'Available'),
-(9, 1, 1, 1, 'F1-U09', 500000, 'Maintenance'),
-(10, 1, 1, 1, 'F1-U10', 500000, 'Available'),
-(11, 2, 1, 1, 'F2-U01', 450000, 'Available'),
-(12, 2, 1, 1, 'F2-U02', 450000, 'Available'),
-(13, 2, 1, 2, 'F2-U03', 750000, 'In Use'),
-(14, 2, 1, 2, 'F2-U04', 750000, 'Available'),
-(15, 2, 2, 1, 'F2-U05', 650000, 'Available'),
-(16, 2, 2, 1, 'F2-U06', 650000, 'Available'),
-(17, 2, 2, 2, 'F2-U07', 1100000, 'Available'),
-(18, 2, 2, 2, 'F2-U08', 1100000, 'Available'),
-(19, 2, 1, 1, 'F2-U09', 450000, 'Available'),
-(20, 2, 1, 1, 'F2-U10', 450000, 'Available');
+(1, 1, 1, 1, 'Q1-U01', 300000, 'Available'),
+(2, 1, 1, 2, 'Q1-U02', 500000, 'Available'),
+(3, 1, 4, 4, 'Q1-U03', 800000, 'Available'),
+(4, 1, 4, 5, 'Q1-U04', 1000000, 'In Use'),
+(5, 1, 3, 2, 'Q1-U05', 400000, 'Available'),
+(6, 1, 3, 3, 'Q1-U06', 600000, 'Available'),
+(7, 1, 2, 8, 'Q1-U07', 2000000, 'Available'),
+(8, 1, 2, 9, 'Q1-U08', 2500000, 'Available'),
+(9, 1, 1, 3, 'Q1-U09', 700000, 'Maintenance'),
+(10, 1, 4, 6, 'Q1-U10', 1200000, 'Available'),
+(11, 2, 1, 1, 'TB-U01', 280000, 'Available'),
+(12, 2, 1, 2, 'TB-U02', 450000, 'Available'),
+(13, 2, 3, 4, 'TB-U03', 750000, 'In Use'),
+(14, 2, 4, 5, 'TB-U04', 900000, 'Available'),
+(15, 2, 3, 2, 'TB-U05', 380000, 'Available'),
+(16, 2, 3, 3, 'TB-U06', 550000, 'Available'),
+(17, 2, 2, 8, 'TB-U07', 1800000, 'Available'),
+(18, 2, 2, 9, 'TB-U08', 2200000, 'Available'),
+(19, 2, 4, 6, 'TB-U09', 1100000, 'Available'),
+(20, 2, 1, 3, 'TB-U10', 650000, 'Available'),
+
+-- Cơ sở Thủ Đức (FacilityID = 3)
+(21, 3, 1, 1, 'TD-U01', 300000, 'Available'),
+(22, 3, 1, 2, 'TD-U02', 500000, 'Available'),
+(23, 3, 4, 4, 'TD-U03', 800000, 'Available'),
+(24, 3, 4, 5, 'TD-U04', 1000000, 'Available'),
+(25, 3, 3, 2, 'TD-U05', 400000, 'Available'),
+(26, 3, 3, 3, 'TD-U06', 600000, 'Available'),
+(27, 3, 2, 8, 'TD-U07', 2000000, 'Available'),
+(28, 3, 2, 9, 'TD-U08', 2500000, 'Available'),
+(29, 3, 1, 3, 'TD-U09', 700000, 'Available'),
+(30, 3, 4, 6, 'TD-U10', 1200000, 'Available'),
+
+-- Cơ sở Quận 2 (FacilityID = 4)
+(31, 4, 1, 1, 'Q2-U01', 350000, 'Available'),
+(32, 4, 1, 2, 'Q2-U02', 550000, 'Available'),
+(33, 4, 4, 4, 'Q2-U03', 850000, 'Available'),
+(34, 4, 4, 5, 'Q2-U04', 1050000, 'Available'),
+(35, 4, 3, 2, 'Q2-U05', 450000, 'Available'),
+(36, 4, 3, 3, 'Q2-U06', 650000, 'Available'),
+(37, 4, 2, 8, 'Q2-U07', 2100000, 'Available'),
+(38, 4, 2, 9, 'Q2-U08', 2600000, 'Available'),
+(39, 4, 1, 3, 'Q2-U09', 750000, 'Available'),
+(40, 4, 4, 6, 'Q2-U10', 1250000, 'Available'),
+
+-- Cơ sở Quận 3 (FacilityID = 5)
+(41, 5, 1, 1, 'Q3-U01', 400000, 'Available'),
+(42, 5, 1, 2, 'Q3-U02', 600000, 'Available'),
+(43, 5, 4, 4, 'Q3-U03', 900000, 'Available'),
+(44, 5, 4, 5, 'Q3-U04', 1100000, 'Available'),
+(45, 5, 3, 2, 'Q3-U05', 500000, 'Available'),
+(46, 5, 3, 3, 'Q3-U06', 700000, 'Available'),
+(47, 5, 2, 8, 'Q3-U07', 2200000, 'Available'),
+(48, 5, 2, 9, 'Q3-U08', 2700000, 'Available'),
+(49, 5, 1, 3, 'Q3-U09', 800000, 'Available'),
+(50, 5, 4, 6, 'Q3-U10', 1300000, 'Available');
 SET IDENTITY_INSERT StorageUnit OFF;
 GO
 
@@ -451,8 +510,8 @@ GO
 -- 9. Reservation
 SET IDENTITY_INSERT Reservation ON;
 INSERT INTO Reservation (ReservationID, CustomerID, FacilityID, UnitTypeID, AssignedUnitID, StartDate, RentalPeriod, EndDate, TotalEstimatedCost, Status) VALUES
-(1, 6, 1, 1, 4, '2026-09-01', 3, '2026-12-01', 2400000, 'Confirmed'),
-(2, 7, 2, 1, 13, '2026-09-10', 12, '2027-09-10', 9000000, 'Confirmed');
+(1, 6, 1, 4, 4, '2026-09-01', 3, '2026-12-01', 3000000, 'Confirmed'),
+(2, 7, 2, 3, 13, '2026-09-10', 12, '2027-09-10', 9000000, 'Confirmed');
 SET IDENTITY_INSERT Reservation OFF;
 GO
 
